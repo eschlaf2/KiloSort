@@ -48,7 +48,7 @@ Nfilt = ops.Nfilt;
 lam = ops.lam(1) * ones(Nfilt, 1, 'single');
 
 ind_filt = itsort(rem([1:Nfilt]-1, numel(itsort)) + 1);
-U = gpuArray(uBase(ind_filt, :))';
+U = toGPU(ops.GPU, uBase(ind_filt, :))';
 U = U + .001 * randn(size(U));
 mu = sum(U.^2,1)'.^.5;
 U = normc(U);
@@ -58,12 +58,12 @@ for i = 1:10
     
     idT = zeros(size(inds));
     dWU = zeros(Nfilt, nProj, 'single');
-    nToT = gpuArray.zeros(Nfilt, 1, 'single');
-    Cost = gpuArray(single(0));
+    nToT = toGPU(ops.GPU, zeros(Nfilt, 1, 'single'));
+    Cost = toGPU(ops.GPU, single(0));
     
     for ibatch = 1:size(inds,2)
         % find clusters
-        clips = reshape(gpuArray(uproj(inds(:,ibatch), :)), nSpikesPerBatch, nProj);
+        clips = reshape(toGPU(ops.GPU, uproj(inds(:,ibatch), :)), nSpikesPerBatch, nProj);
         
         ci = clips * U;
         
@@ -77,7 +77,7 @@ for i = 1:10
         %        x = ci([1:nSpikesPerBatch] + nSpikesPerBatch * (id-1)')' - mu(id) .* lam(id);
         idT(:,ibatch) = id;
         
-        L = gpuArray.zeros(Nfilt, nSpikesPerBatch, 'single');
+        L = toGPU(ops.GPU,zeros(Nfilt, nSpikesPerBatch, 'single'));
         L(id' + [0:Nfilt:(Nfilt*nSpikesPerBatch-1)]) = 1;
         dWU = dWU + L * clips;
         
@@ -132,4 +132,11 @@ end
 WUinit = single(WUinit);
 %%
 
+end
 
+function array = toGPU(GPU, array)
+
+if GPU
+    array = gpuArray(array);
+end
+end
