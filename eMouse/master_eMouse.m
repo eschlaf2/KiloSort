@@ -1,12 +1,13 @@
-useGPU = 1; % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
+useGPU = 0; % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
 
-fpath    = 'F:\DATA\Spikes\eMouse\'; % where on disk do you want the simulation? ideally and SSD...
+fpath = '/project/ecog/emily/DATA/KiloSort/eMouse';
+% fpath    = 'F:\DATA\Spikes\eMouse\'; % where on disk do you want the simulation? ideally and SSD...
 if ~exist(fpath, 'dir'); mkdir(fpath); end
 
 % This part adds paths
-addpath(genpath('D:\CODE\GitHub\KiloSort')) % path to kilosort folder
-addpath(genpath('D:\CODE\GitHub\npy-matlab')) % path to npy-matlab scripts
-pathToYourConfigFile = 'D:\CODE\GitHub\KiloSort\eMouse'; % for this example it's ok to leave this path inside the repo, but for your own config file you *must* put it somewhere else!  
+addpath(genpath('/project/ecog/emily/KiloSort')) % path to kilosort folder
+% addpath(genpath('D:\CODE\GitHub\npy-matlab')) % path to npy-matlab scripts
+pathToYourConfigFile = '/project/ecog/emily/KiloSort/eMouse'; % for this example it's ok to leave this path inside the repo, but for your own config file you *must* put it somewhere else!  
 
 % Run the configuration file, it builds the structure of options (ops)
 run(fullfile(pathToYourConfigFile, 'config_eMouse.m'))
@@ -14,10 +15,11 @@ run(fullfile(pathToYourConfigFile, 'config_eMouse.m'))
 % This part makes the channel map for this simulation
 make_eMouseChannelMap(fpath); 
 
-% This part simulates and saves data. There are many options you can change inside this 
-% function, if you want to vary the SNR or firing rates, or number of cells etc. 
-% You can vary these to make the simulated data look more like your data.
-% Currently it is set to relatively low SNR for illustration purposes in Phy. 
+% This part simulates and saves data. There are many options you can change
+% inside this function, if you want to vary the SNR or firing rates, or
+% number of cells etc. You can vary these to make the simulated data look
+% more like your data. Currently it is set to relatively low SNR for
+% illustration purposes in Phy.
 make_eMouseData(fpath, useGPU); 
 %
 % This part runs the normal Kilosort processing on the simulated data
