@@ -1,0 +1,3 @@
+cd CUDA/
+mexGPUall;
+cd ..
