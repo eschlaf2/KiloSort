@@ -1,4 +1,4 @@
-useGPU = 0; % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
+useGPU = 1; % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
 
 fpath = '/project/ecog/emily/DATA/KiloSort/eMouse';
 % fpath    = 'F:\DATA\Spikes\eMouse\'; % where on disk do you want the simulation? ideally and SSD...
