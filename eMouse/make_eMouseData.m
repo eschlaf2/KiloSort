@@ -2,7 +2,8 @@ function make_eMouseData(fpath, useGPU)
 % this script makes binary file of simulated eMouse recording
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% you can play with the parameters just below here to achieve a signal more similar to your own data!!! 
+% you can play with the parameters just below here to achieve a signal more
+% similar to your own data!!!
 mu_mean   = 15; % mean of mean spike amplitudes. 15 should contain enough clustering errors to be instructive (in Phy). 20 is good quality data, 10 will miss half the neurons, 
 nn        = 30; % number of simulated neurons (30)
 t_record  = 1000; % duration in seconds of simulation. longer is better (and slower!) (1000)
@@ -78,7 +79,7 @@ while t_all<t_record
     
     dat(:, [1 2]) = 0; % these are the "dead" channels
     
-    % now we add spikes on non-dead channels. 
+    % now we add spikes on non-dead channels.
     ibatch = (spk_times >= t_all*fs) & (spk_times < t_all*fs+NT-buff); 
     ts = spk_times(ibatch) - t_all*fs;
     ids = clu(ibatch);
