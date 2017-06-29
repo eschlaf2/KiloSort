@@ -1,7 +1,7 @@
 %%
 isV1pyr = rez.nbins(1:Nfilt)> 1000 & rez.ypos'>0 & rez.t2p(:,1)>10;
 isV1pv  = rez.nbins(1:Nfilt)> 1000 & rez.ypos'>0 & rez.t2p(:,1)<=10;
-W0 = alignW(W(:,:,1));
+W0 = alignW(W(:,:,1), ops);
 
 figure(1)
 hist(rez.t2p(rez.nbins>1000,1), 1:1:nt0) 
