@@ -1,6 +1,6 @@
 %  create a channel map file
 
-load(fpath, 'MG49_Seizure45.mat', 'Neuroport');
+load(fullfile(fpath, 'MG49_Seizure45.mat'), 'Neuroport');
 
 Nchannels = 96;
 connected = true(Nchannels, 1);

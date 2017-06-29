@@ -4,8 +4,13 @@ ops.parfor              = 0; % whether to use parfor to accelerate some parts of
 ops.verbose             = 1; % whether to print command line progress		
 ops.showfigures         = 1; % whether to plot figures during optimization		
 		
-ops.datatype            = 'dat';  % binary ('dat', 'bin') or 'openEphys'		
-ops.fbinary             = fullfile(fpath, 'sim_binary.dat'); % will be created for 'openEphys'		
+ops.datatype            = 'dat';  % binary ('dat', 'bin') or 'openEphys'
+ops.s_start             = 1; 
+ops.s_end               = 3e6;
+outfile                 = strcat('MG49_binary', num2str(ops.s_start, ...
+                            '%07.0f'), '-', ...
+                            num2str(ops.s_end, '%07.0f'), '.dat');
+ops.fbinary             = fullfile(fpath, outfile); % will be created for 'openEphys'		
 ops.fproc               = fullfile(fpath, 'temp_wh.dat'); % residual from RAM of preprocessed data		
 ops.root                = fpath; % 'openEphys' only: where raw files are		
 % define the channel map as a filename (string) or simply an array		
@@ -56,8 +61,8 @@ ops.crit            = .65;     % upper criterion for discarding spike repeates (
 ops.nFiltMax        = 10000;   % maximum "unique" spikes to consider (10000)		
 		
 % load predefined principal components (visualization only (Phy): used for features)		
-% dd                  = load('PCspikes2.mat'); % you might want to recompute this from your own data		
-% ops.wPCA            = dd.Wi(:,1:7);   % PCs 		
+dd                  = load('PCspikes2.mat'); % you might want to recompute this from your own data		
+ops.wPCA            = dd.Wi(:,1:7);   % PCs 		
 		
 % options for posthoc merges (under construction)		
 ops.fracse  = 0.1; % binning step along discriminant axis for posthoc merges (in units of sd)		

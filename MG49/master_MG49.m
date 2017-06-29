@@ -1,6 +1,6 @@
 useGPU = 1; % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
 
-fpath = '/project/ecog/emily/DATA/KiloSort/eMouse';
+fpath = '/project/ecog/emily/DATA/KiloSort/MG49';
 % fpath    = 'F:\DATA\Spikes\eMouse\'; % where on disk do you want the
 % simulation? ideally and SSD...
 if ~exist(fpath, 'dir'); mkdir(fpath); end
@@ -15,10 +15,10 @@ pathToYourConfigFile = '/project/ecog/emily/KiloSort/MG49'; % for this example i
 run(fullfile(pathToYourConfigFile, 'config_MG49.m'))
 
 % This part makes the channel map for this simulation
-createChannelMap_MG49(fpath); 
+createChannelMap_MG49; 
 
 % Create a zscored binary file of the data
-make_MG49Data(fpath);
+make_MG49Data(fpath, ops);
 
 %
 % This part runs the normal Kilosort processing on the simulated data
@@ -29,7 +29,7 @@ rez                = fullMPMU(rez, DATA);% extract final spike times (overlappin
 % % save python results file for Phy
 % rezToPhy(rez, fpath);
 
-fprintf('Kilosort took %2.2f seconds vs 72.77 seconds on GTX 1080 + M2 SSD \n', toc)
+fprintf('Kilosort took %2.2f seconds \n', toc)
 
 % now fire up Phy and check these results. There should still be manual
 % work to be done (mostly merges, some refinements of contaminated
